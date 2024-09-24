@@ -5,69 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Travel Chatbot</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css">
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
     body {
         font-family: 'Inter', sans-serif;
         background-image: url("https://i.ibb.co/djd5kV6/bg.jpg"); 
+        box-shadow: 0 3000px rgba(0, 0, 0, 0.3) inset;
         background-repeat: no-repeat;
-        background-size: cover;
+        background-size:cover;
         margin: 0;
         padding: 0;
-    }
-
-    .intro-section {
-        height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
-        text-align: center;
-        color: #fff;
-        padding: 20px;
-        background-color: rgba(0, 0, 0, 0.5);
-        position: relative;
-    }
-
-    .intro-section h1 {
-        font-size: 2.5rem;
-        margin-bottom: 20px;
-    }
-
-    .intro-section p {
-        font-size: 1.2rem;
-        max-width: 600px;
-    }
-
-    .intro-image {
-        position: absolute;
-        right: 50px;
-        bottom: 0;
-        max-width: 200px;
-        z-index: 1;
-    }
-
-    .why-choose-us-section {
-        display: flex;
-        justify-content: space-between;
-        padding: 40px;
-        background-color: #f7f9fa;
-    }
-
-    .why-choose-us-section .content {
-        width: 50%;
-        padding-right: 20px;
-    }
-
-    .why-choose-us-section .image-container {
-        width: 50%;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-    }
-
-    .why-choose-us-section img {
-        max-width: 300px;
+        min-height: 100vh;
     }
 
     .chat-container {
@@ -80,75 +32,173 @@
         max-width: 700px;
         max-height: 90vh;
         overflow: hidden;
-        margin: 20px auto;
+        margin: 20px;
         animation: fadeIn 1s ease-in-out;
     }
 
-    .footer-image {
-        width: 100%;
-        height: auto;
+    .chat-header {
+        display: flex;
+        align-items: center; 
+        color: #ffffff;
+        padding: 20px;
+        border-radius: 15px 15px 0 0;
+        animation: slideIn 0.5s ease-in-out;
+    }
+    
+    .user_img{
+        height: 70px;
+        width: 70px;
+        margin-right: 10px;
+        border:1.5px solid #f5f6fa;
+        border-radius: 100%;
+        animation: scaleUp 0.5s ease;
     }
 
+    .info span{
+        font-size: 20px;
+        font-weight: bold; 
+    }
+    
+    .info p{
+        font-size: 12px;
+        font-weight: medium; 
+        color: rgba(255,255,255,0.6);
+    }
+
+    .chat-body {
+        padding: 20px;
+        flex-grow: 1;
+        overflow-y: auto;
+        color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
+    .message {
+        margin-bottom: 15px;
+        padding: 10px 15px;
+        border-radius: 20px;
+        max-width: 90%;
+        opacity: 0;
+        animation: fadeInMessage 0.8s ease forwards;
+    }
+
+    .user {
+        background-color: #439b36;
+        color: #ffffff;
+        align-self: flex-end;
+    }
+
+    .bot {
+        background-color: rgb(90, 145, 197);
+        color: #000000;
+        align-self: flex-start;
+    }
+
+    .chat-footer {
+        display: flex;
+        padding: 15px;
+        border-top: 1px solid #ddd;
+        box-shadow: 0 -2px 10px rgba(166, 222, 235, 0.6);
+    }
+
+    .input-message {
+        flex-grow: 1;
+        padding: 10px;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        background-color: #c7c1c1;
+        color: #000000;
+        animation: fadeIn 0.6s ease;
+    }
+
+    .send-btn {
+        background-color: #c7c1c1;
+        color: #000000;
+        border: none;
+        padding: 10px 16px;
+        margin-left: 10px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: 150px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        animation: scaleUp 0.5s ease;
+    }
+
+    .send-btn:hover {
+        background-color: #ffffff;
+        transform: scale(1.05);
+    }
+
+    /* Animation Keyframes */
     @keyframes fadeIn {
         from { opacity: 0; }
         to { opacity: 1; }
     }
 
-    @keyframes fadeInMessage {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
+    @keyframes slideIn {
+        from { transform: translateY(-100%); }
+        to { transform: translateY(0); }
     }
-  </style>
+
+    @keyframes scaleUp {
+        from { transform: scale(0.8); }
+        to { transform: scale(1); }
+    }
+
+    @keyframes fadeInMessage {
+        0% { opacity: 0; transform: translateY(10px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+        .chat-container {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .chat-header {
+            font-size: 20px;
+        }
+
+        .chat-body {
+            padding: 15px;
+        }
+
+        .input-message {
+            font-size: 14px;
+        }
+
+        .send-btn {
+            padding: 8px 12px;
+        }
+    }
+</style>
+
 </head>
 <body>
 
-<!-- Intro Section -->
-<div class="intro-section">
-    <div>
-        <h1>Start your journey with our one-stop travel solution!</h1>
-        <p>Plan and book your perfect trip with TravelTweak's intelligent chatbot. Get expert advice, tailored itineraries, and dynamic trip suggestions - all in one click!</p>
-        <button class="btn btn-light">Scroll down to chat</button>
+<div class="chat-container">
+  <div class="chat-header">
+    <img src="https://i.ibb.co/fSNP7Rz/icons8-chatgpt-512.png" class="user_img">
+    <div class="info">
+      <span>TravelTweak</span>
+      <p>Tailoring your trips just the way you like!</p>
     </div>
-    <img src="https://i.ibb.co/Nj6HSpy/image.png" alt="Travel Image" class="intro-image">
+  </div>
+
+  <div class="chat-body" id="chatBody"></div>
+
+  <div class="chat-footer">
+    <input type="text" id="messageInput" class="input-message" placeholder="Type your message here...">
+    <button class="send-btn" onclick="sendMessage()">Send</button>
+  </div>
 </div>
-
-<!-- Why Choose Us Section -->
-<div class="why-choose-us-section">
-    <div class="image-container">
-        <img src="https://i.ibb.co/KNrjyj2/image.png" alt="Why Choose Us Image">
-    </div>
-    <div class="content">
-        <h2>Why Choose Us</h2>
-        <p>Enjoy different experiences in every place you visit and discover new and affordable adventures of course.</p>
-        <ul>
-            <li>Flight Ticket: Vitae donec pellentesque a aliquam et ultricies auctor.</li>
-            <li>Accommodation: Vitae donec pellentesque a aliquam et ultricies auctor.</li>
-        </ul>
-    </div>
-</div>
-
-<!-- Chat Section -->
-<div id="chat" style="padding: 20px;">
-    <div class="chat-container">
-        <div class="chat-header">
-            <img src="https://i.ibb.co/fSNP7Rz/icons8-chatgpt-512.png" class="user_img">
-            <div class="info">
-                <span>TravelTweak</span>
-                <p>Tailoring your trips just the way you like!</p>
-            </div>
-        </div>
-
-        <div class="chat-body" id="chatBody"></div>
-
-        <div class="chat-footer">
-            <input type="text" id="messageInput" class="input-message" placeholder="Type your message here...">
-            <button class="send-btn" onclick="sendMessage()">Send</button>
-        </div>
-    </div>
-</div>
-
-<!-- Footer Image Covering Full Width -->
-<img src="https://i.ibb.co/fYckks9/image.png" alt="Footer Image" class="footer-image">
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
@@ -199,23 +249,7 @@
         chatBody.scrollTop = chatBody.scrollHeight; // Scroll to the bottom after each message
     }
 
-    // Format bot's response
-    function formatBotResponse(aiResponse) {
-        let formattedResponse = aiResponse
-            .replace(/\*\*/g, '<br>')
-            .replace(/###/g, '<br>')
-            .replace(/####/g, '<br>');
-        formattedResponse = formattedResponse.replace(/(Date:\s[\w\s,]+)/g, '<b>$1</b><br>');
-        formattedResponse = formattedResponse
-            .replace(/\b(Morning|Afternoon|Evening|Day)\b/g, '<br><b>$1</b>')
-            .replace(/Time:/g, '<br>Time:')
-            .replace(/Activity:/g, '<br>Activity:');
-        formattedResponse = formattedResponse.replace(/\*(.*?)\*/g, '<i>$1</i>');
-
-        appendMessage(formattedResponse, 'bot');
-    }
-
-    // Compile the final trip plan based on the user's answers
+    // Compile the final trip plan based on the user's answers and send it to the Llama API
     async function compileAndSendTripPlan() {
         const compiledInfo = `
         You are a trip planning expert who prepares a day-to-day itinerary of the trip for the user. Your answering format should follow this template:
@@ -234,25 +268,44 @@
         Give recommendations for "${userResponses.accommodationAnswer}" type of accommodation at the destination. Include some "${userResponses.interestAnswer}" in the day-to-day trip plan. The places to eat should follow their preferences: "${userResponses.dietAnswer}".
         `;
 
-
         try {
-            const response = await fetch(LLAMA_API_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
+            // Send the compiled trip information to the Llama API
+            const response = await axios.post(
+                LLAMA_API_URL,
+                {
                     messages: [
                         { role: "system", content: "You are a helpful assistant." },
                         { role: "user", content: compiledInfo }
                     ]
-                })
-            });
+                },
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json"
+                    }
+                }
+            );
 
-            const data = await response.json();
-            formatBotResponse(data.choices[0].message.content.trim());
+            // Display the response from Llama API
+            let aiResponse = response.data.choices[0].message.content.trim();
+
+            // Formatting the response before displaying it
+            let formattedResponse = aiResponse
+                .replace(/\\/g, '<br>')
+                .replace(/###/g, '<br>')
+                .replace(/####/g, '<br>');
+            formattedResponse = formattedResponse.replace(/(Date:\s[\w\s,]+)/g, '<b>$1</b><br>');
+            formattedResponse = formattedResponse
+                .replace(/\b(Morning|Afternoon|Evening|Day)\b/g, '<br><b>$1</b>')
+                .replace(/Time:/g, '<br>Time:')
+                .replace(/Activity:/g, '<br>Activity:');
+            formattedResponse = formattedResponse.replace(/\(.?)\*/g, '<i>$1</i>');
+
+            // Append the formatted response to the chat
+            appendMessage(formattedResponse, 'bot');
         } catch (error) {
-            appendMessage("Error generating the trip plan. Please try again.", 'bot');
+            console.error("Error communicating with the Llama API:", error.response?.data || error.message);
+            appendMessage("Error generating the trip plan. Please try again later.", 'bot');
         }
     }
 
@@ -270,25 +323,23 @@
             userResponses[responseKeys[currentQuestionIndex]] = userMessage;
             currentQuestionIndex++;
 
-            // Ask the next question or compile and send the trip plan
+            // Ask the next question or compile and send the trip plan to the Llama API
             if (currentQuestionIndex < tripQuestions.length) {
                 setTimeout(() => {
                     appendMessage(tripQuestions[currentQuestionIndex], 'bot');
                 }, 500);
             } else {
-                compileAndSendTripPlan();
+                compileAndSendTripPlan(); // Call the function to send the final info to Llama API
             }
         }
 
         messageInput.value = ''; // Clear the input field
     }
 
-    // Start with the first question
-    window.onload = function () {
-        appendMessage(tripQuestions[currentQuestionIndex], 'bot');
-    }
+    // Start the conversation with the first question
+    appendMessage(tripQuestions[currentQuestionIndex], 'bot');
 
-    // Add event listener for sending a message with the Enter key
+    // Add event listener for the Enter key to send messages
     messageInput.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') {
             sendMessage();
