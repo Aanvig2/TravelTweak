@@ -160,6 +160,33 @@
         cursor: pointer;
     }
 
+    .why-choose-us-section {
+        display: flex;
+        justify-content: space-between;
+        padding: 40px;
+        background-color: #f7f9fa;
+    }
+
+    .why-choose-us-section .content {
+        width: 50%;
+        padding-right: 20px;
+    }
+
+    .why-choose-us-section .image-container {
+        width: 50%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .why-choose-us-section img {
+        max-width: 300px;
+    }
+    .footer-image {
+        width: 100%;
+        height: auto;
+    }
+
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     @keyframes slideIn { from { transform: translateY(-100%); } to { transform: translateY(0); } }
     @keyframes fadeInMessage { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -222,6 +249,21 @@
                 <button class="send-btn" onclick="sendMessage()">Send</button>
             </div>
         </div>
+    </div>
+</div>
+
+<div class="why-choose-us-section">
+</div>
+    <div class="image-container">
+        <img src="https://i.ibb.co/KNrjyj2/image.png" alt="Why Choose Us Image">
+    </div>
+    <div class="content">
+        <h2>Why Choose Us</h2>
+        <p>Enjoy different experiences in every place you visit and discover new and affordable adventures of course.</p>
+        <ul>
+            <li>Flight Ticket: Vitae donec pellentesque a aliquam et ultricies auctor.</li>
+            <li>Accommodation: Vitae donec pellentesque a aliquam et ultricies auctor.</li>
+        </ul>
     </div>
 </div>
 
@@ -314,13 +356,26 @@
             });
 
             const data = await response.json();
-            let aiResponse = data.choices[0].message.content.trim();
-            appendMessage(aiResponse, 'bot');
+            formatBotResponse(data.choices[0].message.content.trim());
         } catch (error) {
             appendMessage("Error generating the trip plan. Please try again.", 'bot');
         }
     }
+        // Format bot's response
+    function formatBotResponse(aiResponse) {
+        let formattedResponse = aiResponse
+            .replace(/\*\*/g, '<br>')
+            .replace(/###/g, '<br>')
+            .replace(/####/g, '<br>');
+        formattedResponse = formattedResponse.replace(/(Date:\s[\w\s,]+)/g, '<b>$1</b><br>');
+        formattedResponse = formattedResponse
+            .replace(/\b(Morning|Afternoon|Evening|Day)\b/g, '<br><b>$1</b>')
+            .replace(/Time:/g, '<br>Time:')
+            .replace(/Activity:/g, '<br>Activity:');
+        formattedResponse = formattedResponse.replace(/\*(.*?)\*/g, '<i>$1</i>');
 
+        appendMessage(formattedResponse, 'bot');
+    }
     // Handle sending a message
     function sendMessage() {
         const userMessage = messageInput.value.trim();
@@ -347,7 +402,7 @@
 
         messageInput.value = ''; // Clear the input field
     }
-
+    
     // Add event listener for sending a message with the Enter key
     messageInput.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') {
